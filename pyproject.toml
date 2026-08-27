@@ -1,0 +1,6 @@
+[project]
+name = "RedditCrawler"
+version = "0.1.0"
+description = "all dependencies for the reddit crawler and it's suite kit"
+requires-python = ">=3.11"
+dependencies = []
