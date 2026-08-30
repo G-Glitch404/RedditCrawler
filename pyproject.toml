@@ -1,6 +1,19 @@
 [project]
 name = "RedditCrawler"
-version = "0.1.0"
+version = "2.0.0"
 description = "all dependencies for the reddit crawler and it's suite kit"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "fastapi>=0.141.1",
+    "pydantic2>=1.1.15",
+    "uvicorn[standard]>=0.52.4",
+    "vadersentiment>=3.3.2",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.1.1",
+    "pytest-dotenv>=0.5.2",
+    "websockets>=17.0.1",
+]
