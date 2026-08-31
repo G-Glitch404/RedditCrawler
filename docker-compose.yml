@@ -1,0 +1,43 @@
+services:
+  reddit-crawler:
+    container_name: reddit-crawler-app
+    restart: unless-stopped
+    stop_grace_period: 30s
+    image: localhost/reddit-crawler:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env/.env.prod
+    environment:
+      TZ: UTC
+      HOST: ${HOST:-0.0.0.0}
+      PORT: ${PORT:-9091}
+      MAX_CONCURRENT_SCRAPES: ${MAX_CONCURRENT_SCRAPES:-2}
+      DEFAULT_TIMEOUT_SECONDS: ${DEFAULT_TIMEOUT_SECONDS:-120}
+      MAX_TIMEOUT_SECONDS: ${MAX_TIMEOUT_SECONDS:-600}
+      WEBSOCKET_RECEIVE_TIMEOUT_SECONDS: ${WEBSOCKET_RECEIVE_TIMEOUT_SECONDS:-30}
+      WEBSOCKET_IDLE_TIMEOUT_SECONDS: ${WEBSOCKET_IDLE_TIMEOUT_SECONDS:-120}
+    ports:
+      - "${PORT:-9091}:9091"
+    networks:
+      - crawlers-network
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "curl",
+          "-fsS",
+          "http://localhost:9091/health"
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+networks:
+  crawlers-network:
+    external: true
