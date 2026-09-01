@@ -39,4 +39,5 @@ class RedditCrawler:
         max_amount: int = 1000,
         stop_date: Optional[dt.datetime] = None,
     ) -> AsyncGenerator[Post, None]:
+        """ the crawl balancer between private and public crawling """
         raise NotImplementedError("Not implemented yet.")

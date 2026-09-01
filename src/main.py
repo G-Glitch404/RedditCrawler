@@ -6,6 +6,7 @@ PORT: int = int(os.getenv("PORT", "9091"))
 
 
 def main() -> None:
+    """ entry point for running the service """
     uvicorn.run(
         "src.api:app",
         host=HOST,
